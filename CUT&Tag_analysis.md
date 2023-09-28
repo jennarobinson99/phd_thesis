@@ -12,6 +12,7 @@ done
 
 ## Fastqc 
 ```
+module load fastqc
 for name in $sample
 do
 fastqc $name
