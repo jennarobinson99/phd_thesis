@@ -29,3 +29,39 @@ done
 
 
 ## Differential gene expression 
+
+```
+#Feauture count 
+nice R 
+library(Rsubread)
+fc_PEO_RNA <- featureCounts(files=list.files(pattern='.bam$'),annot.ext='hg38_ucsc/hg38.refGene.gtf',isGTFAnnotationFile=TRUE, nthread=32, GTF.featureType="exon", GTF.attrType="gene_id", useMetaFeatures=TRUE, isPairedEnd=T)
+head(fc_PEO_RNA$counts)
+write.table(x=data.frame(fc_PEO_RNA$counts,stringsAsFactors=FALSE), file="fc_PEO_RNA.txt",quote=FALSE,sep="\t",row.names=TRUE)
+
+#DESeq2
+library(DESeq2)
+fc_PEO_RNA <- read.delim("fc_PEO_RNA.txt", header = TRUE, sep = "\t")
+condition <- c("PEO1", "PEO1", "PEO1", "PEO4", "PEO4", "PEO4")
+dds <- DESeqDataSetFromMatrix(countData=fc_PEO_RNA, colData=DataFrame(condition), design=~condition)
+
+#remove rows that have <10 counts 
+dds <- dds[rowSums(counts(dds))>=10,]
+
+#conduct differential analysis
+dds <- DESeq(dds)
+res <- results(dds)
+
+#get the name of the comparisons made aka coefficients
+resultsNames(dds) 
+ 
+#Shrink fold change - coef = name from above step 
+res.shr <- lfcShrink(dds,coef="condition_PEO4_vs_PEO1")
+
+#Remove rows with missing adj p value
+resFix <- res.shr[!is.na(res.shr$padj),]
+
+#Export data 
+write.csv(as.data.frame(resFix), file="geneID_RNA_PEO4_v_PEO1.csv")
+
+```
+
