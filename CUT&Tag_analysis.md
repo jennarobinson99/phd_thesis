@@ -116,8 +116,10 @@ bedtools intersect -u -a file_1.bed -b file_2.bed > file_intersect.bed
 #Find distinct peaks
 module load bedtools
 bedtools intersect -v -a file_1.bed -b file_2.bed > file_intersect.bed
-
+```
 ##Genomic annotation
+
+```
 module load homer
 annotatePeaks.pl hg38 file.bed > annotated_file.bed 
 ```
