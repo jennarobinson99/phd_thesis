@@ -2,11 +2,11 @@
 
 ## Merging technical replicates 
 
-`for name in $sample
-do
-cat $name*.R1.fq.gz > merged/$name.R1.fq.gz
-cat $name*.R2.fq.gz > merged/$name.R2.fq.gz
-done`
+`for name in $sample`
+`do`
+`cat $name*.R1.fq.gz > merged/$name.R1.fq.gz`
+`cat $name*.R2.fq.gz > merged/$name.R2.fq.gz`
+`done`
 
 ## Fastqc 
 `for name in $sample
