@@ -117,7 +117,7 @@ bedtools intersect -u -a file_1.bed -b file_2.bed > file_intersect.bed
 module load bedtools
 bedtools intersect -v -a file_1.bed -b file_2.bed > file_intersect.bed
 ```
-##Genomic annotation
+## Genomic annotation
 
 ```
 module load homer
