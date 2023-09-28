@@ -117,16 +117,18 @@ bedtools intersect -u -a file_1.bed -b file_2.bed > file_intersect.bed
 module load bedtools
 bedtools intersect -v -a file_1.bed -b file_2.bed > file_intersect.bed
 
-## Genomic annotation
+##Genomic annotation
 module load homer
 annotatePeaks.pl hg38 file.bed > annotated_file.bed 
 ```
 
 ## Super-enhancer calling 
+```
 module load anaconda3/personal
 module load bedtools
 module load samtools
 mkdir annotation 
 cp hg38_refseq.ucsc annotation 
-ROSE_main.py -g hg38 -i file.bed -r file.bam -o sample_SE 
+ROSE_main.py -g hg38 -i file.bed -r file.bam -o sample_SE
+```
 
